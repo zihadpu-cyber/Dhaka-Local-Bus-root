@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-  <title>Dhaka Local Bus Routes</title>
+  <meta charset="UTF-8">
+  <title>Dhaka Bus Routes</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: green; }
+    input { padding: 8px; width: 250px; }
+    button { padding: 8px; margin-left: 5px; }
+    .route { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+  </style>
 </head>
 <body>
-  <h1>ঢাকার লোকাল বাস রুট</h1>
-  <p>এই ওয়েবসাইটে ঢাকার বাস রুটের তথ্য দেওয়া আছে।</p>
+  <h1>ঢাকা বাস রুট ফাইন্ডার</h1>
+  <input type="text" id="search" placeholder="বাসের নাম বা এলাকা লিখুন">
+  <button onclick="findRoute()">খুঁজুন</button>
+  <div id="result"></div>
+
+  <script>
+    const buses = [
+      {bus: "Dhaka Nagar Poribohon", route: ["Keraniganj","Basila","Mohammadpur","Shahbagh","Motijheel","Jatrabari","Kachpur"]},
+      {bus: "Anabil Super", route: ["Gazipur","Uttara","Airport","Kuril","Badda","Khilgaon","Sayedabad","Jatrabari","Postogola","Signboard"]},
+      {bus: "Thikana Express", route: ["Jirani","EPZ","Savar","Gabtoli","New Market","Gulistan","Sayedabad"]},
+      {bus: "Khaja Baba Paribahan", route: ["Mirpur 10","Mirpur 11","Mirpur 12","Kazipara","Farmgate","Gulistan","Jatrabari"]},
+      {bus: "Shikor Paribahan", route: ["Mirpur 10","Shewrapara","Agargaon","Farmgate","Shahbagh","Gulistan","Sayedabad","Jatrabari"]},
+      {bus: "Achim Paribahan", route: ["Gabtoli","Mirpur","Kuril","Badda","Rampura","Banasree","Demra Staff Quarter"]},
+      {bus: "Agradut Paribahan", route: ["Savar","Gabtoli","Shyamoli","Farmgate","Mohakhali","Gulshan","Badda","Notun Bazar"]}
+    ];
+
+    function findRoute() {
+      let query = document.getElementById("search").value.toLowerCase();
+      let output = "";
+      buses.forEach(b => {
+        if(b.bus.toLowerCase().includes(query) || b.route.some(r => r.toLowerCase().includes(query))) {
+          output += `<div class="route"><b>${b.bus}</b>: ${b.route.join(" → ")}</div>`;
+        }
+      });
+      document.getElementById("result").innerHTML = output || "❌ কোনো রুট পাওয়া যায়নি!";
+    }
+  </script>
 </body>
 </html>
